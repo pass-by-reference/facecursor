@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+**/release
+**/debug
+
+**/opencv
+**/opencv_**
