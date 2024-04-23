@@ -154,11 +154,6 @@ int pointer_webcam()
     true);
   
   std::string window_name;
-  // if(constants::DEBUG) {
-  //   window_name = "Live Tracking";
-  //   cv::namedWindow(window_name, 1);
-  // }
-
   window_name = "Live Tracking";
   cv::namedWindow(window_name, 1);
 

@@ -1,4 +1,8 @@
-## Working Title
+# Facecursor
+
+A repo to control your mouse using your head.
+
+Make sure you have a webcam plugged in.
 
 ## Building
 
@@ -11,8 +15,6 @@ Requirements:
 - Downloads and builds dependencies (opencv)
 - Download relevant models
 - Setup release and debug directories
-2. `cd release` && `make`
-- To compile
-3. `./facecursor`
-- To run
+2. To Compile: `cd release` && `make`
+3. To Run: `./facecursor`
 4. Modify the variables in `constants.h` to fine tune experience.

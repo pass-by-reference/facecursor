@@ -162,8 +162,6 @@ clean() {
   fi
 }
 
-ensure_clang
-
 if [[ $# == 1 && $1 == "clean" ]]; then
   clean
 fi
