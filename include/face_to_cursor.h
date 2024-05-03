@@ -26,7 +26,7 @@ private:
   std::pair<int, int> m_last_pointer_location = {0, 0};
   std::pair<int, int> m_curr_location = {0, 0};
 
-  int m_in_range_pixels = 10;
+  int m_in_range_pixels = 30;
   int m_mouth_open_distance = 0;
 
   int m_camera_width;

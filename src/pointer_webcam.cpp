@@ -17,6 +17,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <math.h>
+#include <chrono>
 
 FaceToCursor face_to_cursor;
 ClickProcessor click_processor;
@@ -139,9 +140,10 @@ int pointer_webcam()
   cv::VideoCapture video(0); // Get camera
   #endif
 
+  video.set(cv::CAP_PROP_FRAME_COUNT , 30);
   video.set(cv::CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH);
   video.set(cv::CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT);
-  video.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+  video.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('m', 'p', '4', 'v'));
 
   // record video
   const std::string& output_file = 
@@ -149,7 +151,7 @@ int pointer_webcam()
   cv::VideoWriter video_recorder(
     output_file,
     cv::VideoWriter::fourcc('m', 'p', '4', 'v'),
-    30,
+    15,
     cv::Size(CAMERA_WIDTH, CAMERA_HEIGHT),
     true);
   
@@ -163,6 +165,8 @@ int pointer_webcam()
   video >> frame;
   if(frame.empty()) return -1;
   cv::resize(frame, frame, cv::Size(CAMERA_WIDTH, CAMERA_HEIGHT));
+
+  auto start = std::chrono::high_resolution_clock::now();
   
   while(true) {
     video >> frame;
@@ -214,6 +218,11 @@ int pointer_webcam()
       break;
     }
   }
+
+  auto end = std::chrono::high_resolution_clock::now();
+  auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+  std::cout << elapsed_time.count() / 1000 << std::endl;
 
   video.release();
   video_recorder.release();

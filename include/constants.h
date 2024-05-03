@@ -5,13 +5,13 @@ namespace constants {
 
 const bool SIMULATE_CLICK = true;
 const bool SIMULATE_CURSOR_MOVE = true;
-const bool DEBUG = true;
+const bool DEBUG = false;
 const bool RECORD = true;
 
 const bool USE_LEFT_EYE_BLINK = false;
 
-const double RESTING_MOUTH_DISTANCE = 25;
-const double MOUTH_OPEN_DISTANCE = 50;
+const double RESTING_MOUTH_DISTANCE = 15;
+const double MOUTH_OPEN_DISTANCE = 40;
 const double EAR_THRESHOLD = 0.20;
 
 const int BLINK_THRESHOLD_MILLISECONDS = 400;

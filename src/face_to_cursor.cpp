@@ -56,11 +56,6 @@ std::pair<int, int> FaceToCursor::process_pointer_coords(const std::pair<int, in
     return coords;
   }
 
-  if(m_mouth_open_distance > constants::RESTING_MOUTH_DISTANCE) {
-    new_y = new_y - (int)(1.2 * m_mouth_open_distance);
-  }
-
-
   // Enable smooth cursor transition
   // If camera dimensions (width and height) is less than 
   // screen space (width and height) there loss of data when
@@ -74,6 +69,10 @@ std::pair<int, int> FaceToCursor::process_pointer_coords(const std::pair<int, in
     const int avg_y = (new_y + old_y) / 2;
 
     avg = std::make_pair(avg_x, avg_y);
+  }
+
+  if(m_mouth_open_distance > constants::RESTING_MOUTH_DISTANCE) {
+    avg.second = avg.second - (int)(2 * m_mouth_open_distance);
   }
 
   const bool is_new_x_within_range =
