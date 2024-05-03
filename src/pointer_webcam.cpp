@@ -165,8 +165,6 @@ int pointer_webcam()
   video >> frame;
   if(frame.empty()) return -1;
   cv::resize(frame, frame, cv::Size(CAMERA_WIDTH, CAMERA_HEIGHT));
-
-  auto start = std::chrono::high_resolution_clock::now();
   
   while(true) {
     video >> frame;
@@ -218,11 +216,6 @@ int pointer_webcam()
       break;
     }
   }
-
-  auto end = std::chrono::high_resolution_clock::now();
-  auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-  std::cout << elapsed_time.count() / 1000 << std::endl;
 
   video.release();
   video_recorder.release();
