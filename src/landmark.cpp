@@ -75,7 +75,7 @@ DetectMouthReturn LandmarkOperations::detect_mouth_open(const cv::Mat& frame)
 
   double distance = cv::norm(mouth_top - mouth_bottom);
 
-  if(constants::DEBUG) {
+  if(!constants::USE_LEFT_EYE_BLINK) {
     cv::putText(
       frame,
       "Mouth Lip Distance: " + std::to_string(distance),
@@ -123,29 +123,27 @@ std::pair<bool, bool> LandmarkOperations::detect_blink(const cv::Mat& frame) {
   double right_ear = get_ear(right);
   double left_ear = get_ear(left);
 
-  if(constants::DEBUG) {
-    if(constants::USE_LEFT_EYE_BLINK) {
-      cv::putText(
-        frame,
-        "Left Eye EAR: " + std::to_string(left_ear),
-        cv::Point(20,40), 
-        cv::FONT_HERSHEY_SIMPLEX, 
-        0.5, 
-        cv::Scalar(50,170,50), 
-        2
-      );
-    }
-
+  if(constants::USE_LEFT_EYE_BLINK) {
     cv::putText(
       frame,
-      "Right Eye EAR: " + std::to_string(right_ear),
-      cv::Point(20,80), 
+      "Left Eye EAR: " + std::to_string(left_ear),
+      cv::Point(20,40), 
       cv::FONT_HERSHEY_SIMPLEX, 
       0.5, 
-      cv::Scalar(0,170,50), 
+      cv::Scalar(50,170,50), 
       2
     );
   }
+
+  cv::putText(
+    frame,
+    "Right Eye EAR: " + std::to_string(right_ear),
+    cv::Point(20,80), 
+    cv::FONT_HERSHEY_SIMPLEX, 
+    0.5, 
+    cv::Scalar(0,170,50), 
+    2
+  );
 
   return std::make_pair(
     left_ear < constants::EAR_THRESHOLD,
