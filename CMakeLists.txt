@@ -24,6 +24,7 @@ set(FACECURSOR_SOURCES
   src/landmark.cpp
   src/face_to_cursor.cpp
   src/click_processor.cpp
+  src/extras/cascade_yu_test.cpp
 )
 
 add_executable(facecursor ${FACECURSOR_SOURCES})
