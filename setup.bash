@@ -74,7 +74,7 @@ install_and_build_dependencies() {
 
   # Get specific version.
   cd opencv && git checkout ${OPENCV_VERSION} && cd ..
-  cv opencv_contrib && git checkout ${OPENCV_VERSION} && cd ..
+  cd opencv_contrib && git checkout ${OPENCV_VERSION} && cd ..
 
   mkdir ${OPENCV_BUILD_DIR}
   cd ${OPENCV_BUILD_DIR}
