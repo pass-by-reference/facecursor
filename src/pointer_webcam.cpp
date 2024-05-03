@@ -165,8 +165,6 @@ int pointer_webcam()
   video >> frame;
   if(frame.empty()) return -1;
   cv::resize(frame, frame, cv::Size(CAMERA_WIDTH, CAMERA_HEIGHT));
-
-  auto start = std::chrono::high_resolution_clock::now();
   
   while(true) {
     video >> frame;
@@ -178,32 +176,32 @@ int pointer_webcam()
 
     cv::Mat faces = infer_face(frame, detector);
 
-//     landmark_operations.landmark_inference(frame, faces, facemark);
+    landmark_operations.landmark_inference(frame, faces, facemark);
 
-//     const auto [is_left_eye_closed, is_right_eye_closed] =
-//       landmark_operations.detect_blink(frame);
+    const auto [is_left_eye_closed, is_right_eye_closed] =
+      landmark_operations.detect_blink(frame);
 
-//     const DetectMouthReturn ret =
-//       landmark_operations.detect_mouth_open(frame);
+    const DetectMouthReturn ret =
+      landmark_operations.detect_mouth_open(frame);
 
-//     const bool is_mouth_open = ret.is_mouth_open;
-//     face_to_cursor.set_mouth_open_distance(ret.distance);
+    const bool is_mouth_open = ret.is_mouth_open;
+    face_to_cursor.set_mouth_open_distance(ret.distance);
 
-//     const std::pair<int,int> face_position_coords =
-//       landmark_operations.get_upper_nose(frame);
+    const std::pair<int,int> face_position_coords =
+      landmark_operations.get_upper_nose(frame);
 
-//     InputOperationsParams input = {
-//       .face_position_coords = face_position_coords,
-//       .is_left_eye_closed = is_left_eye_closed,
-//       .is_right_eye_closed = is_right_eye_closed,
-//       .is_mouth_open = is_mouth_open
-//     };
+    InputOperationsParams input = {
+      .face_position_coords = face_position_coords,
+      .is_left_eye_closed = is_left_eye_closed,
+      .is_right_eye_closed = is_right_eye_closed,
+      .is_mouth_open = is_mouth_open
+    };
 
-// #ifdef __linux__
-//     input_operations(display, window, input);
-// #elif __APPLE__
-//     input_operations(input);
-// #endif
+#ifdef __linux__
+    input_operations(display, window, input);
+#elif __APPLE__
+    input_operations(input);
+#endif
 
     if(constants::DEBUG) {
       cv::imshow(window_name, frame);
@@ -218,11 +216,6 @@ int pointer_webcam()
       break;
     }
   }
-
-  auto end = std::chrono::high_resolution_clock::now();
-  auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-  std::cout << elapsed_time.count() / 1000 << std::endl;
 
   video.release();
   video_recorder.release();
