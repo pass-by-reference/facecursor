@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 
 #include "constants.h"
 #include "face_to_cursor.h"
