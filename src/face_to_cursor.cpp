@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 #include "constants.h"
 #include "face_to_cursor.h"
@@ -19,27 +20,29 @@ std::pair<int, int> FaceToCursor::translate(const std::pair<int, int>& face_posi
 }
 
 std::pair<int, int> FaceToCursor::initial_translate(const std::pair<int, int>& face_position) {
-  int camera_x = face_position.first;
-  int camera_y = face_position.second;
+  const int camera_x = face_position.first;
+  const int camera_y = face_position.second;
 
   if(camera_x == -1 || camera_y == -1) {
     return std::make_pair(0,0);
   }
 
-  double c_x1 = ((double)2/8);
-  double c_x2 = ((double)6/8);
+  // x or horizontal bounds on width
+  const double c_x1 = (double)2/8;
+  const double c_x2 = (double)6/8;
 
-  double c_y1 = ((double)3/8);
-  double c_y2 = ((double)4/8);
+  // y or vertical bounds on height
+  const double c_y1 = (double)3/8;
+  const double c_y2 = (double)4/8;
 
-  double m_x = m_screen_width / (c_x2 * m_camera_width - c_x1 * m_camera_width);
-  double m_y = m_screen_height / (c_y2 * m_camera_height - c_y1 * m_camera_height);
+  const double m_x = m_screen_width / (c_x2 * m_camera_width - c_x1 * m_camera_width);
+  const double m_y = m_screen_height / (c_y2 * m_camera_height - c_y1 * m_camera_height);
 
-  double x_constant = (m_screen_width * c_x1) / (c_x2 - c_x1);
-  double y_constant = (m_screen_height * c_y1) / (c_y2 - c_y1);
+  const double x_constant = (m_screen_width * c_x1) / (c_x2 - c_x1);
+  const double y_constant = (m_screen_height * c_y1) / (c_y2 - c_y1);
 
-  int screen_x = (m_x * (double)camera_x) - x_constant;
-  int screen_y = (m_y * (double)camera_y) - y_constant;
+  int screen_x = (m_x * camera_x) - x_constant;
+  int screen_y = (m_y * camera_y) - y_constant;
 
   return std::make_pair(screen_x, screen_y);
 }
